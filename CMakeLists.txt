@@ -58,17 +58,12 @@ set(nlohmann_json_REQUIRED_VERSION 3.2.0)
 set(xtl_REQUIRED_VERSION 0.7)
 set(xeus_REQUIRED_VERSION 3.0)
 
-if (NOT TARGET nlohmann_json)
-    find_package(nlohmann_json ${nlohmann_json_REQUIRED_VERSION} REQUIRED)
-endif ()
 
-if (NOT TARGET xtl)
-    find_package(xtl ${xtl_REQUIRED_VERSION} REQUIRED)
-endif ()
+find_package(nlohmann_json ${nlohmann_json_REQUIRED_VERSION} REQUIRED)
+find_package(xtl ${xtl_REQUIRED_VERSION} REQUIRED)
+find_package(xeus ${xeus_REQUIRED_VERSION} REQUIRED)
+find_package(LibArchive  REQUIRED)
 
-if (NOT TARGET xeus)
-    find_package(xeus ${xeus_REQUIRED_VERSION} REQUIRED)
-endif ()
 
 # Source files
 # ============
@@ -80,6 +75,7 @@ set(XEUS_LITE_HEADERS
 )
 
 set(XEUS_LITE_SOURCES
+    ${XEUS_LITE_SOURCE_DIR}/untar.cpp
     ${XEUS_LITE_SOURCE_DIR}/xembind.cpp
     ${XEUS_LITE_SOURCE_DIR}/xserver_emscripten.cpp
 )
@@ -101,6 +97,7 @@ target_link_libraries(
     PUBLIC nlohmann_json::nlohmann_json
     PUBLIC xtl
     PUBLIC xeus-static
+    PUBLIC ${LibArchive_LIBRARY}
 )
 
 set_target_properties(
