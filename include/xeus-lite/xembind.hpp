@@ -19,6 +19,8 @@
 
 #include "xserver_emscripten.hpp"
 
+#include <iostream>
+
 namespace nl = nlohmann;
 namespace ems = emscripten;
 
@@ -72,7 +74,9 @@ namespace xeus
         // we cannot access the exception message directly.
         ems::function("get_exception_message", 
             ems::select_overload<std::string(int)>([](int exceptionPtr) {
-            return std::string(reinterpret_cast<std::exception *>(exceptionPtr)->what());
+            auto str =  std::string(reinterpret_cast<std::exception *>(exceptionPtr)->what());
+            std::cout<<"get_exception_message: "<<str<<std::endl;
+            return str;
         }));
     }
 }

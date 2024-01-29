@@ -63,6 +63,7 @@ find_package(nlohmann_json ${nlohmann_json_REQUIRED_VERSION} REQUIRED)
 find_package(xtl ${xtl_REQUIRED_VERSION} REQUIRED)
 find_package(xeus ${xeus_REQUIRED_VERSION} REQUIRED)
 find_package(LibArchive  REQUIRED)
+find_package(ZLIB REQUIRED)
 
 
 # Source files
@@ -98,6 +99,7 @@ target_link_libraries(
     PUBLIC xtl
     PUBLIC xeus-static
     PUBLIC ${LibArchive_LIBRARY}
+    PUBLIC ${ZLIB_LIBRARIES}
 )
 
 set_target_properties(

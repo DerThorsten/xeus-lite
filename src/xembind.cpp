@@ -19,7 +19,10 @@ namespace nl = nlohmann;
 namespace ems = emscripten;
 
 namespace xeus
-{
+{   
+
+    void untar(std::string tar_path, std::string target_path);
+
     nl::json json_from_js_object(ems::val js_obj)
     {
         ems::val js_json_lib = ems::val::global("JSON");
@@ -166,6 +169,10 @@ namespace xeus
             .function("notify_listener", &xserver_emscripten::js_notify_listener)
         ;
     }
+    void export_untar()
+    {
+        ems::function("untar", &untar);
+    }
 
     void export_core()
     {
@@ -189,7 +196,9 @@ namespace xeus
         ;
         #endif
         export_server_emscripten();
+        export_untar();
     }
+
 
     xeus::xserver * get_server(xeus::xkernel * kernel)
     {
